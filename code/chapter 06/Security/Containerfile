@@ -1,0 +1,8 @@
+FROM fedora:latest as build
+COPY hello.go /app
+WORKDIR /app/
+RUN go build -o hello
+
+FROM scratch
+COPY –from=build /app/hello /app/
+ENTRYPOINT [“/app/hello”]

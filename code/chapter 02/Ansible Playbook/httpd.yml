@@ -1,0 +1,14 @@
+---
+- name: handler demo
+  hosts: all
+  become: true
+  tasks:
+    - name: latest package
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+      notify: httpd update
+  handlers:
+    - name: httpd update
+      ansible.builtin.debug:
+        msg: "Webserver updaed!"

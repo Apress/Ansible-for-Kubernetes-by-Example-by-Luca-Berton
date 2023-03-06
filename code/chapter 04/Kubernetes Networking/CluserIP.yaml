@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "nginx-example"
+  namespace: "mynamespace"
+spec:
+  type: CluserIP
+  selector:
+    app: "nginx"
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376

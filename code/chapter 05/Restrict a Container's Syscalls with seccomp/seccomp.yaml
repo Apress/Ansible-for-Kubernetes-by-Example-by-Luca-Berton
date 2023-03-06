@@ -1,0 +1,5 @@
+---
+securityContext:
+  seccompProfile:
+    type: localhost
+    localhostProfile: profiles/audit.json

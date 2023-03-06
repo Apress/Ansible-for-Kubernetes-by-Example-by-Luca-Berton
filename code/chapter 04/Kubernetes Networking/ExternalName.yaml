@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "nginx-example"
+  namespace: "mynamespace"
+spec:
+  type: ExternalName
+  externalName: mydb.example.com

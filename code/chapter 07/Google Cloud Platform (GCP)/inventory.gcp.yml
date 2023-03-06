@@ -1,0 +1,5 @@
+plugin: gcp_compute
+projects:
+  - ansible-examples
+auth_kind: serviceaccount
+service_account_file: /home/ansible/credentials.json

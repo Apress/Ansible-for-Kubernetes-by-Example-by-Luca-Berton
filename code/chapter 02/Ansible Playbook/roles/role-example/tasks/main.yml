@@ -1,0 +1,4 @@
+---
+name: role-example demo
+ansible.builtin.debug:
+  msg: "role-example"

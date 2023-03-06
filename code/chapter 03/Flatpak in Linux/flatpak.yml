@@ -1,0 +1,20 @@
+---
+- name: flatpak module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: flatpak present
+      ansible.builtin.package:
+        name: flatpak
+        state: present
+    - name: flathub repo
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+        method: system
+    - name: install Podman Desktop via flatpak
+      community.general.flatpak:
+        name: io.podman_desktop.PodmanDesktop
+        state: present
+        method: system

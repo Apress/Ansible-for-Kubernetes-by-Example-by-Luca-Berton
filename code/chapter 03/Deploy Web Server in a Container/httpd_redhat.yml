@@ -1,0 +1,47 @@
+---
+- name: deploy httpd container
+  hosts: all
+  become: true
+  gather_facts: false
+  vars:
+    webroot: "/webroot"
+  tasks:
+    - name: podman installed
+      ansible.builtin.yum:
+        name: podman
+        state: latest
+
+    - name: pull image
+      containers.podman.podman_image:
+        name: httpd
+        pull: true
+        tag: latest
+
+    - name: webroot present
+      ansible.builtin.file:
+        path: "{{ webroot }}"
+        state: directory
+        owner: "root"
+        group: "root"
+        mode: '0777'
+        setype: "container_share_t"
+
+    - name: custom index.html
+      ansible.builtin.copy:
+        dest: "{{ webroot }}/index.html"
+        content: |
+          Custom Web Page
+        setype: "container_share_t"
+
+    - name: run httpd container
+      containers.podman.podman_container:
+        name: webserver
+        image: httpd
+        state: started
+        detach: true
+        expose:
+          - 80
+        ports:
+          - 8080:80
+        volume:
+          - "{{ webroot }}:/usr/local/apache2/htdocs/:exec"

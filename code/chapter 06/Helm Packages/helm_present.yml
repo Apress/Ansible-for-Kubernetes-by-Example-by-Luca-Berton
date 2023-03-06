@@ -1,0 +1,14 @@
+---
+- name: k8s helm
+  hosts: all
+  vars:
+    chart_name: "nginx-server"
+    chart_ref: "bitnami/nginx"
+    myproject: "ansible-examples"
+  tasks:
+    - name: helm chart present
+      kubernetes.core.helm:
+        name: "{{ chart_name }}"
+        namespace: "{{ myproject }}"
+        chart_ref: "{{ chart_ref }}"
+        release_state: present

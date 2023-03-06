@@ -1,0 +1,12 @@
+---
+- name: install prometheus
+  hosts: all
+  roles:
+    - prometheus.prometheus.prometheus
+  vars:
+    prometheus_targets:
+      node:
+        - targets:
+            - k8s.ansiblepilot.com:9100
+          labels:
+          env: ansible-examples

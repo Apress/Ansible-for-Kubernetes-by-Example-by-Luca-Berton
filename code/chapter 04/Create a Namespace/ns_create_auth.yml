@@ -1,0 +1,25 @@
+---
+- name: k8s ns
+  hosts: all
+  vars:
+    myproject: "ansible-examples"
+    k8s_username: "kubeadmin"
+    k8s_password: "password"
+    k8s_host: "https://api.k8s:6443"
+    k8s_validate: true
+  tasks:
+    - name: get access token
+      kubernetes.core.k8s_auth:
+        username: "{{ k8s_username }}"
+        password: "{{ k8s_password }}"
+        host: "{{ k8s_host }}"
+        validate_certs: "{{ k8s_validate }}"
+      register: k8s_auth_results
+
+    - name: namespace present
+      kubernetes.core.k8s:
+        api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+        api_version: v1
+        kind: Namespace
+        name: "{{ myproject }}"
+        state: present

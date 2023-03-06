@@ -1,0 +1,4 @@
+plugin: kubernetes.core.k8s
+connections:
+ - namespaces:
+    - ansible-examples

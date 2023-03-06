@@ -1,0 +1,11 @@
+---
+- name: k8s deployments
+  hosts: all
+  tasks:
+    - name: list all deployments
+      ansible.builtin.set_fact:
+        deployments: "{{ query('kubernetes.core.k8s', kind='Deployment', namespace='ansible-examples') | community.general.json_query('[*].metadata.name') }}"
+
+    - name: display the result
+      ansible.builtin.debug:
+        msg: "{{ deployments }}"

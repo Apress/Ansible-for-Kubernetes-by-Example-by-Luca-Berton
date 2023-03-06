@@ -1,0 +1,11 @@
+---
+- name: k8s multiple
+  hosts: all
+  tasks:
+    - name: k8s resources
+      kubernetes.core.k8s:
+        definition: "{{ lookup('template', '{{ item }}') | from_yaml }}"
+      with_fileglob:
+        - "./defs/mynamespace.yaml"
+        - "./defs/mypod.yaml"
+        - "./defs/myservice.yaml"

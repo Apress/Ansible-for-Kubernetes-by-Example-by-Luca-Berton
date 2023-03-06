@@ -1,0 +1,43 @@
+---
+- name: deploy httpd on container
+  hosts: all
+  become: true
+  vars:
+    webroot: "/webroot/"
+  tasks:
+    - name: system packages present
+      ansible.builtin.apt:
+        name:
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+    - name: Docker Module for Python
+      ansible.builtin.pip:
+        name: docker
+    - name: pull image
+      community.docker.docker_image:
+        name: httpd
+        source: pull
+        tag: latest
+    - name: webroot present
+      ansible.builtin.file:
+        path: "{{ webroot }}"
+        state: directory
+    - name: custom index.html
+      ansible.builtin.copy:
+        dest: "{{ webroot }}index.html"
+        content: |
+          Custom Web Page
+    - name: run httpd container
+      community.docker.docker_container:
+        name: webserver
+        image: httpd
+        state: started
+        detach: true
+        exposed_ports:
+          - 80
+        ports:
+          - 8080:80
+        volumes: "{{ webroot }}:/usr/local/apache2/htdocs/"

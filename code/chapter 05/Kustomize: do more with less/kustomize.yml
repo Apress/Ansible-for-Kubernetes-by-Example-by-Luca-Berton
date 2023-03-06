@@ -1,0 +1,18 @@
+---
+- name: k8s ns
+  hosts: all
+  vars:
+    myproject: "ansible-examples"
+    kustomize_dir: "kustomization"
+  tasks:
+    - name: namespace present
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: "{{ myproject }}"
+        state: present
+
+    - name: create kubernetes resource using lookup plugin
+      kubernetes.core.k8s:
+        namespace: "{{ myproject }}"
+        definition: "{{ lookup('kubernetes.core.kustomize', dir=kustomize_dir) }}"

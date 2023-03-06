@@ -1,0 +1,12 @@
+---
+- name: k8s helm repo
+  hosts: all
+  vars:
+    helm_chart_name: "bitnami"
+    helm_chart_url: "https://charts.bitnami.com/bitnami"
+  tasks:
+    - name: helm repo present
+      kubernetes.core.helm_repository:
+        name: "{{ helm_chart_name }}"
+        repo_url: "{{ helm_chart_url }}"
+        repo_state: present

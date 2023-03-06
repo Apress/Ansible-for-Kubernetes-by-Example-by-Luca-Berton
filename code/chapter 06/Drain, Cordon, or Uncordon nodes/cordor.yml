@@ -1,0 +1,10 @@
+---
+- name: k8s cordon
+  hosts: all
+  vars:
+    mynode: "k8s.ansiblepilot.com"
+  tasks:
+    - name: cordon node
+      kubernetes.core.k8s_drain:
+        state: cordon
+        name: "{{ mynode }}"

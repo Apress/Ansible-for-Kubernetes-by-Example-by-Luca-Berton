@@ -1,0 +1,11 @@
+---
+- name: k8s helm
+  hosts: all
+  vars:
+    chart_name: "nginx-server"
+    myproject: "ansible-examples"
+  tasks:
+    - name: gather chart information
+      kubernetes.core.helm_info:
+        name: "{{ chart_name }}"
+        release_namespace: "{{ myproject }}"

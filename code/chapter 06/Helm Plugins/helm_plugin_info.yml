@@ -1,0 +1,13 @@
+---
+- name: k8s helm plugin
+  hosts: all
+  vars:
+    myplugin_name: "env"
+  tasks:
+    - name: helm plugin info
+      kubernetes.core.helm_plugin_info:
+      register: output
+
+    - name: print plugin version
+      ansible.builtin.debug:
+        msg: "{{ (output.plugin_list | selectattr('name', 'equalto', myplugin_name) | list)[0].version }}"

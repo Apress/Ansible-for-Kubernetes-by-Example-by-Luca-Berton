@@ -1,0 +1,17 @@
+---
+- name: k8s copy
+  hosts: all
+  vars:
+    mypod: "nginx-server"
+    myproject: "ansible-examples"
+    remote_path: "/data"
+    local_path: "/tmp/data"
+    direction: "from_pod"
+  tasks:
+    - name: copy data
+      kubernetes.core.k8s_cp:
+        namespace: "{{ myproject }}"
+        pod: "{{ mypod }}"
+        remote_path: "{{ remote_path }}"
+        local_path: "{{ local_path }}"
+        state: "{{ direction }}"

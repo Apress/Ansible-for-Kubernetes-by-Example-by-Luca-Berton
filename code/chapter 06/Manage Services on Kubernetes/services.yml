@@ -1,0 +1,14 @@
+---
+- name: k8s service
+  hosts: all
+  tasks:
+    - name: expose https port with ClusterIP
+      kubernetes.core.k8s_service:
+        state: present
+        name: port-https
+        namespace: default
+        ports:
+          - port: 443
+            protocol: TCP
+            selector:
+              key: special

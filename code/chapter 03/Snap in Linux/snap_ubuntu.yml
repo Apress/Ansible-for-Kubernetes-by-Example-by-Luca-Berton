@@ -1,0 +1,14 @@
+---
+- name: snap module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: snapd present
+      ansible.builtin.apt:
+        name: snapd
+        state: present
+    - name: install microk8s via snap
+      community.general.snap:
+        name: microk8s
+        state: present
+        classic: true

@@ -1,0 +1,11 @@
+---
+- name: ssh reload
+  hosts: all
+  vars:
+    reload_ssh: false
+  tasks:
+    - name: reload ssh
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+      when: reload_ssh

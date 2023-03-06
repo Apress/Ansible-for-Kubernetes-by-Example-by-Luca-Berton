@@ -1,0 +1,6 @@
+---
+- name: test
+  hosts: all
+  tasks:
+    - name: test connection
+      ansible.builtin.ping:

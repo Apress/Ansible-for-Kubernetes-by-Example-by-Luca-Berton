@@ -1,0 +1,14 @@
+---
+- name: k8s rollback
+  hosts: all
+  vars:
+    myproject: "ansible-examples"
+    kind: "Deployment"
+    name: "nginx-server"
+  tasks:
+    - name: rollback
+      kubernetes.core.k8s_rollback:
+        api_version: apps/v1
+        kind: "{{ kind }}"
+        name: "{{ name }}"
+        namespace: "{{ myproject }}"

@@ -1,0 +1,12 @@
+---
+- name: install fail2ban
+  hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: install fail2ban
+      ansible.builtin.apt:
+        name: fail2ban
+        status: present
+        update_cache: true

@@ -1,0 +1,12 @@
+---
+- name: k8s helm plugin
+  hosts: all
+  vars:
+    myplugin_name: "env"
+    myplugin_path: "https://github.com/adamreese/helm-env"
+  tasks:
+    - name: helm plugin present
+      kubernetes.core.helm_plugin:
+        plugin_name: "{{ myplugin_name }}"
+        plugin_path: "{{ myplugin_path }}"
+        state: present

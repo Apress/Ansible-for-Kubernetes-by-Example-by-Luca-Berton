@@ -1,0 +1,10 @@
+---
+- name: template demo
+  hosts: all
+  vars:
+    example: Hi
+  tasks:
+    - name: apply template
+      ansible.builtin.template:
+        src: templates/hi.txt.j2
+        dest: /tmp/hi.txt

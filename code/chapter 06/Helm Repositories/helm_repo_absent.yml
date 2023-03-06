@@ -1,0 +1,10 @@
+---
+- name: k8s helm repo
+  hosts: all
+  vars:
+    helm_chart_name: "bitnami"
+  tasks:
+    - name: helm repo removed
+      kubernetes.core.helm_repository:
+        name: "{{ helm_chart_name }}"
+        repo_state: absent

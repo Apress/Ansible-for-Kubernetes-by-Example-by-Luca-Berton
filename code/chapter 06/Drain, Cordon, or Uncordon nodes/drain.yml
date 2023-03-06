@@ -1,0 +1,13 @@
+---
+- name: k8s drain
+  hosts: all
+  vars:
+    mynode: "k8s.ansiblepilot.com"
+    grace_period: 600
+  tasks:
+    - name: drain node
+      kubernetes.core.k8s_drain:
+        state: drain
+        name: "{{ mynode }}"
+        delete_options:
+          terminate_grace_period: "{{ grace_period }}"

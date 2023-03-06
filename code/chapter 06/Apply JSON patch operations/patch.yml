@@ -1,0 +1,16 @@
+---
+- name: k8s patch
+  hosts: all
+  vars:
+    mypod: "nginx-server"
+    myproject: "ansible-examples"
+  tasks:
+    - name: patch a Pod
+      kubernetes.core.k8s_json_patch:
+        kind: Pod
+        namespace: "{{ myproject }}"
+        name: "{{ mypod }}"
+        patch:
+          - op: add
+            path: /metadata/labels/new-label
+            value: new-value

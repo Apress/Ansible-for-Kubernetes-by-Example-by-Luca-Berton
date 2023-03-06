@@ -1,0 +1,10 @@
+---
+- name: k8s helm plugin
+  hosts: all
+  vars:
+    myplugin_name: "env"
+  tasks:
+    - name: helm plugin absent
+      kubernetes.core.helm_plugin:
+        plugin_name: "{{ myplugin_name }}"
+        state: absent

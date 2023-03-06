@@ -1,0 +1,33 @@
+---
+- name: k8s cpu
+  hosts: all
+  vars:
+    myproject: "cpu-example"
+  tasks:
+    - name: namespace present
+      kubernetes.core.k8s:
+        kind: Namespace
+        name: "{{ myproject }}"
+        state: present
+        api_version: v1
+    - name: cpu pod
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Pod
+          metadata:
+            name: cpu-demo
+            namespace: "{{ myproject }}"
+          spec:
+            containers:
+              - name: cpu-demo-pod
+                image: vish/stress
+                resources:
+                  limits:
+                    cpu: "1"
+                  requests:
+                    cpu: "0.5"
+                args:
+                  - -cpus
+                  - "2"

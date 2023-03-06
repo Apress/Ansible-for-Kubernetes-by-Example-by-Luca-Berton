@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   name: redis-pod
+spec:
+   containers:
+      - name: hello-container01
+        image: hello-world-python:latest
+        ports:
+           - containerPort: 8080

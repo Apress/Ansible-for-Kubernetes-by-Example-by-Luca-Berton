@@ -1,0 +1,14 @@
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+filters:
+  tag:env: ansible-examples
+keyed_groups:
+  - key: 'architecture'
+    prefix: arch
+  - key: instance_type
+    prefix: instance_type
+  - key: tags.type
+    prefix: tag_type
+hostnames:
+  - ip-address

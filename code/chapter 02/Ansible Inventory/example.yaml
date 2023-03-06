@@ -1,0 +1,13 @@
+---
+all:
+  hosts:
+    bastion.example.com:
+  vars:
+    ansible_user: ansible
+  children:
+    web:
+      hosts:
+        web1.example.com
+        web2.example.com
+      vars:
+        ansible_user: devops

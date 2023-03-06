@@ -1,0 +1,27 @@
+---
+- name: snap module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: snapd present
+      ansible.builtin.yum:
+        name:
+          - snapd
+          - fuse
+          - squashfs-tools
+          - squashfuse
+          - kernel-modules
+        state: present
+    - name: symlink /snap
+      ansible.builtin.file:
+        src: "/var/lib/snapd/snap"
+        dest: "/snap"
+        state: link
+    - name: load squashfs module
+      community.general.modprobe:
+        name: "squashfs"
+        state: present
+    - name: install microk8s via snap
+      community.general.snap:
+        name: microk8s
+        state: present

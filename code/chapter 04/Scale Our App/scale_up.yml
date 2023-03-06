@@ -1,0 +1,17 @@
+---
+- name: k8s scale
+  hosts: all
+  vars:
+    myproject: "ansible-examples"
+    mydeployment: "nginx"
+    myreplica: 10
+    mytimeout: 120
+  tasks:
+    - name: scale Deployment
+      kubernetes.core.k8s_scale:
+        api_version: v1
+        kind: Deployment
+        name: "{{ mydeployment }}"
+        namespace: "{{ myproject }}"
+        replicas: "{{ myreplica }}"
+        wait_timeout: "{{ mytimeout }}"

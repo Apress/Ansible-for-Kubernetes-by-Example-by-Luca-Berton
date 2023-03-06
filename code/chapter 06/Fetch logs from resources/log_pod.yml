@@ -1,0 +1,16 @@
+---
+- name: k8s log
+  hosts: all
+  vars:
+    myproject: "ansible-examples"
+    pod_name: "nginx-server"
+  tasks:
+    - name: get log from pod
+      kubernetes.core.k8s_log:
+        name: "{{ pod_name }}"
+        namespace: "{{ myproject }}"
+      register: log
+
+    - name: display log
+      ansible.builtin.debug:
+        var: log

@@ -1,0 +1,17 @@
+---
+- name: k8s taint
+  hosts: all
+  vars:
+    mynode: "k8s.ansiblepilot.com"
+  tasks:
+    - name: taint node
+      kubernetes.core.k8s_taint:
+        state: present
+        name: "{{ mynode }}"
+        taints:
+          - effect: NoExecute
+            key: "key1"
+            value: "value1"
+          - effect: NoSchedule
+            key: "key1"
+            value: "value1"

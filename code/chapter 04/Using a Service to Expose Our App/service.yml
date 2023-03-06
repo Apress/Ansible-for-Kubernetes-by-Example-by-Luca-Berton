@@ -1,0 +1,11 @@
+---
+- name: k8s service
+  hosts: all
+  vars:
+    myproject: "ansible-examples"
+  tasks:
+    - name: k8s service
+      kubernetes.core.k8s:
+        src: service.yaml
+        namespace: "{{ myproject }}"
+        state: present

@@ -1,0 +1,7 @@
+---
+- name: eda demo
+  hosts: localhost
+  tasks:
+    - name: print a message
+      ansible.builtin.debug:
+        msg: "Event Driven Ansible"
